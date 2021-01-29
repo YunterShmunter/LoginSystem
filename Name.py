@@ -3,7 +3,8 @@ import random
 
 login_or_register = input("Would you like to Login or Register: ")
 is_logged_in = False
-blackjack_deck = [1, 12]
+will_stay = False
+
 if login_or_register == "Login" or login_or_register == "login":
     username = input("\nType your username here: ")
     password = input("\nType your password here: ")
@@ -43,12 +44,27 @@ if is_logged_in:
     card_two = random.randint(0, 10)
     new_card = random.randint(0, 11)
     our_hand = card_one + card_two
-    dealers_hand = card_one + card_two
+    dealers_card_one = random.randint(0, 11)
+    dealers_card_two = random.randint(0, 10)
+    dealers_new_card = random.randint(0, 11)
+    dealers_hand = dealers_card_one + dealers_card_two
 
-    print(card_one, card_two + " = " + our_hand)
+    print("Your hand: " + str(card_one), str(card_two) + " = " + str(our_hand))
+    print("Dealers hand: " + str(dealers_card_one) + " ?")
+    time.sleep(1)
+
     hit_or_stay = input("Would you like to hit or stay: ")
 
     if hit_or_stay == "hit" or "Hit":
         print("Hit: " + str(new_card))
         new_hand = our_hand + new_card
-        print(str(our_hand) + str(new_card))
+        print("New hand: " + str(new_hand))
+        hit_or_stay = input("Would you like to hit or stay: ")
+    elif hit_or_stay == "stay" or "Stay":
+        will_stay = True
+
+    if will_stay and dealers_hand <= 16:
+        new_dealers_hand = dealers_hand + dealers_new_card
+        print(dealers_card_one, dealers_card_two, dealers_new_card)
+    elif will_stay and dealers_hand >= 17:
+        print(dealers_card_one, dealers_card_two)
