@@ -1,7 +1,9 @@
 import time
+import random
 
 login_or_register = input("Would you like to Login or Register: ")
-
+is_logged_in = False
+blackjack_deck = [1, 12]
 if login_or_register == "Login" or login_or_register == "login":
     username = input("\nType your username here: ")
     password = input("\nType your password here: ")
@@ -9,10 +11,9 @@ if login_or_register == "Login" or login_or_register == "login":
 
     with open("Database.txt") as u:
         if login in u.read():
-            print("Welcome " + username + ", you are now logged in!")
+            print("Welcome " + username + ", Get ready to play BlackJack")
             is_logged_in = True
-            time.sleep(1)
-            print("Type play to play a game of BlackJack")
+            time.sleep(2)
         else:
             print("Incorrect Username Or Password")
 elif login_or_register == "Register" or login_or_register == "register":
@@ -37,5 +38,17 @@ elif login_or_register == "Register" or login_or_register == "register":
 else:
     print("Invalid Input")
 
-if is_logged_in == True and input("") == "Play" or "play":
-    print("Playing an epic game of BlackJack")
+if is_logged_in:
+    card_one = random.randint(0, 11)
+    card_two = random.randint(0, 10)
+    new_card = random.randint(0, 11)
+    our_hand = card_one + card_two
+    dealers_hand = card_one + card_two
+
+    print(card_one, card_two + " = " + our_hand)
+    hit_or_stay = input("Would you like to hit or stay: ")
+
+    if hit_or_stay == "hit" or "Hit":
+        print("Hit: " + str(new_card))
+        new_hand = our_hand + new_card
+        print(str(our_hand) + str(new_card))
